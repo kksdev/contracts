@@ -48,8 +48,6 @@ contract Factory is OwnableUpgradeable {
     HeroConfig private _config;
     uint256 private _unlockPosFee;
     uint16[6] private _level;
-    uint256 public testa;
-    uint256 public testb;
 
     struct rewardBox {
         uint32[] equipIds;
@@ -147,18 +145,24 @@ contract Factory is OwnableUpgradeable {
     }
 
     function upgradeEquip(uint256[] calldata tokenIds) public {
-        require(tokenIds.length == 3, "number err");
         uint32 equipId = _equip.getEquipId(tokenIds[0]);
         require((equipId%100) <_MAX_EQUIP_LEVEL,"MAX LEVEN");
-        require(_equip.getEquipId(tokenIds[1]) == equipId && _equip.getEquipId(tokenIds[2]) == equipId, "not same equipId");
         
-        for(uint8 i = 0; i< 3; i++) {
+        uint32 newEquipId = equipId++;
+        uint256 needTokens = 0;
+        for(uint8 i = 0; i< tokenIds.length; i++) {
             require(_equip.ownerOf(tokenIds[i]) == msg.sender, "not owner");
+            require(_equip.getEquipId(tokenIds[1]) == equipId, "not same equipId");
             _equip.burn(tokenIds[i]);
+            if((i+1)%3 == 0) {
+                _equip.mint(msg.sender, newEquipId);
+                needTokens +=_EQUIP_TOKENS;
+            }
         }
 
-        _equip.mint(msg.sender, ++equipId);
-        _token.transferFrom(msg.sender, _beneficiary, _EQUIP_TOKENS);
+        if( needTokens > 0 ) {
+            _token.transferFrom(msg.sender, _beneficiary, _EQUIP_TOKENS);
+        }
     }
 
     function farmIn(uint8 farmId, uint256[] calldata ids) external {
