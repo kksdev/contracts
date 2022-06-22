@@ -1,0 +1,454 @@
+#-------------------------------------KSToken
+type KSTokenAccount @entity {
+	id: ID!
+	asKSToken: KSTokenContract
+	KSTokenbalances: [KSTokenBalance!]! @derivedFrom(field: "account")
+	KSTokenapprovalsOwner: [KSTokenApproval!]! @derivedFrom(field: "owner")
+	KSTokenapprovalsSpender: [KSTokenApproval!]! @derivedFrom(field: "spender")
+	KSTokentransferFromEvent: [KSTokenTransfer!]! @derivedFrom(field: "from")
+	KSTokentransferToEvent: [KSTokenTransfer!]! @derivedFrom(field: "to")
+	events: [KSTokenEvent!]! @derivedFrom(field: "emitter")
+}
+type KSTokenContract @entity {
+	id: ID!
+	asAccount: KSTokenAccount!
+	name: String
+	symbol: String
+	decimals: Int!
+	totalSupply: KSTokenBalance!
+	balances: [KSTokenBalance!]! @derivedFrom(field: "contract")
+	approvals: [KSTokenApproval!]! @derivedFrom(field: "contract")
+	transfers: [KSTokenTransfer!]! @derivedFrom(field: "contract")
+}
+type KSTokenBalance @entity {
+	id: ID!
+	contract: KSTokenContract!
+	account: KSTokenAccount
+	value: BigDecimal!
+	valueExact: BigInt!
+	transferFromEvent: [KSTokenTransfer!]! @derivedFrom(field: "fromBalance")
+	transferToEvent: [KSTokenTransfer!]! @derivedFrom(field: "toBalance")
+}
+type KSTokenApproval @entity {
+	id: ID!
+	contract: KSTokenContract!
+	owner: KSTokenAccount!
+	spender: KSTokenAccount!
+	value: BigDecimal!
+	valueExact: BigInt!
+}
+type KSTokenTransfer implements KSTokenEvent @entity {
+	id: ID!
+	emitter: KSTokenAccount!
+	transaction: KSTokenTransaction!
+	timestamp: BigInt!
+	contract: KSTokenContract!
+	from: KSTokenAccount
+	fromBalance: KSTokenBalance
+	to: KSTokenAccount
+	toBalance: KSTokenBalance
+	value: BigDecimal!
+	valueExact: BigInt!
+}
+interface KSTokenEvent {
+	id: ID!
+	transaction: KSTokenTransaction!
+	emitter: KSTokenAccount!
+	timestamp: BigInt!
+}
+type KSTokenTransaction @entity {
+	id: ID!
+	timestamp: BigInt!
+	blockNumber: BigInt!
+	events: [KSTokenEvent!]! @derivedFrom(field: "transaction")
+}
+
+#------------------------------------------KSNFT
+type KSNFTAccount @entity {
+	id: ID!
+	asKSNFT: KSNFTContract
+	KSNFTtokens: [KSNFTToken!]! @derivedFrom(field: "owner")
+	KSNFToperatorOwner: [KSNFTOperator!]! @derivedFrom(field: "owner")
+	KSNFToperatorOperator: [KSNFTOperator!]! @derivedFrom(field: "operator")
+	KSNFTtransferFromEvent: [KSNFTTransfer!]! @derivedFrom(field: "from")
+	KSNFTtransferToEvent: [KSNFTTransfer!]! @derivedFrom(field: "to")
+	events: [KSNFTEvent!]! @derivedFrom(field: "emitter")
+}
+type KSNFTContract @entity {
+	id: ID!
+	asAccount: KSNFTAccount!
+	supportsMetadata: Boolean
+	name: String
+	symbol: String
+	tokens: [KSNFTToken!]! @derivedFrom(field: "contract")
+	operators: [KSNFTOperator!]! @derivedFrom(field: "contract")
+	transfers: [KSNFTTransfer!]! @derivedFrom(field: "contract")
+	sellingTotal: Int!
+	soldTotal: Int!
+}
+type KSNFTToken @entity {
+	id: ID!
+	contract: KSNFTContract!
+	identifier: BigInt!
+	owner: KSNFTAccount!
+	approval: KSNFTAccount!
+	uri: String
+	transfers: [KSNFTTransfer!]! @derivedFrom(field: "token")
+	attr: [NFTAttr!] @derivedFrom(field: "token")
+}
+type KSNFTOperator @entity {
+	id: ID!
+	contract: KSNFTContract!
+	owner: KSNFTAccount!
+	operator: KSNFTAccount!
+	approved: Boolean!
+}
+type KSNFTTransfer implements KSNFTEvent @entity {
+	id: ID!
+	emitter: KSNFTAccount!
+	transaction: KSNFTTransaction!
+	timestamp: BigInt!
+	contract: KSNFTContract!
+	token: KSNFTToken!
+	from: KSNFTAccount!
+	to: KSNFTAccount!
+}
+interface KSNFTEvent {
+	id: ID!
+	transaction: KSNFTTransaction!
+	emitter: KSNFTAccount!
+	timestamp: BigInt!
+}
+type KSNFTTransaction @entity {
+	id: ID!
+	timestamp: BigInt!
+	blockNumber: BigInt!
+	events: [KSNFTEvent!]! @derivedFrom(field: "transaction")
+}
+
+#------------------------------------------Market
+enum Status {
+  Active
+  Cancelled
+  Sold
+}
+
+type Listing1155 @entity {
+	id: ID!
+	orderId: BigInt!
+	seller: KSMAccount!
+	token: KSMToken!
+	price: BigDecimal!
+	priceExact: BigInt!
+	buyer: KSMAccount
+	addTimestamp: BigInt!
+	soldTimestamp: BigInt!
+	status: Status!
+	contract: KSMContract!
+	amount: Int!
+}
+
+type Listing implements NFTAttrInterface @entity {
+	id: ID!
+	seller: KSNFTAccount!
+	token: KSNFTToken!
+	price: BigDecimal!
+	priceExact: BigInt!
+	buyer: KSNFTAccount
+	addTimestamp: BigInt!
+	soldTimestamp: BigInt!
+	status: Status!
+	contract: KSNFTContract!
+	
+	Name: String
+	ModelId: Int
+	HeroId: Int
+	Qualitity: Int
+
+	Ap: Int
+	Def: Int
+	HpMAX: Int
+	HpCurrent: Int
+	Luck: Int
+	Star: Int
+	Exp: Int
+	Level: Int
+
+	sAp: Int
+	sDef: Int
+	sHp: Int
+	sLuck: Int
+
+	Equip0: KSEQUIPToken
+	Equip1: KSEQUIPToken
+	Equip2: KSEQUIPToken
+	Equip3: KSEQUIPToken
+	Pos0: Boolean
+	Pos1: Boolean
+	Pos2: Boolean
+	Pos3: Boolean
+}
+
+type ListingEquip implements EquipAttrInterface @entity {
+	id: ID!
+	seller: KSEQUIPAccount!
+	token: KSEQUIPToken!
+	price: BigDecimal!
+	priceExact: BigInt!
+	buyer: KSEQUIPAccount
+	addTimestamp: BigInt!
+	soldTimestamp: BigInt!
+	status: Status!
+	contract: KSEQUIPContract!
+#-------------------Equip
+	ModelId: Int
+	Name: String
+	Attr: String
+	SuitModelId: Int
+	Star: Int
+	Slot: Int
+}
+
+type NFTAttr implements NFTAttrInterface @entity {
+	id: ID!
+	token: KSNFTToken!
+
+	Name: String
+	ModelId: Int
+	HeroId: Int
+	Qualitity: Int
+
+	Ap: Int
+	Def: Int
+	HpMAX: Int
+	HpCurrent: Int
+	Luck: Int
+	Star: Int
+	Exp: Int
+	Level: Int
+
+	sAp: Int
+	sDef: Int
+	sHp: Int
+	sLuck: Int
+
+	Equip0: KSEQUIPToken
+	Equip1: KSEQUIPToken
+	Equip2: KSEQUIPToken
+	Equip3: KSEQUIPToken
+	Pos0: Boolean
+	Pos1: Boolean
+	Pos2: Boolean
+	Pos3: Boolean
+}
+
+interface NFTAttrInterface {
+	Name: String
+	ModelId: Int
+	HeroId: Int
+	Qualitity: Int
+
+	Ap: Int
+	Def: Int
+	HpMAX: Int
+	HpCurrent: Int
+	Luck: Int
+	Star: Int
+	Exp: Int
+	Level: Int
+
+	sAp: Int
+	sDef: Int
+	sHp: Int
+	sLuck: Int
+
+	Equip0: KSEQUIPToken
+	Equip1: KSEQUIPToken
+	Equip2: KSEQUIPToken
+	Equip3: KSEQUIPToken
+	Pos0: Boolean
+	Pos1: Boolean
+	Pos2: Boolean
+	Pos3: Boolean
+}
+
+
+#---------------------------------------------------KSMaterial
+type KSMAccount @entity {
+	id: ID!
+	asKSM: KSMContract
+	KSMbalances: [KSMBalance!]! @derivedFrom(field: "account")
+	KSMoperatorOwner: [KSMOperator!]! @derivedFrom(field: "owner")
+	KSMoperatorOperator: [KSMOperator!]! @derivedFrom(field: "operator")
+	KSMtransferFromEvent: [KSMTransfer!]! @derivedFrom(field: "from")
+	KSMtransferToEvent: [KSMTransfer!]! @derivedFrom(field: "to")
+	KSMtransferOperatorEvent: [KSMTransfer!]! @derivedFrom(field: "operator")
+	events: [KSMEvent!]! @derivedFrom(field: "emitter")
+}
+type KSMContract @entity {
+	id: ID!
+	asAccount: KSMAccount!
+	tokens: [KSMToken!]! @derivedFrom(field: "contract")
+	balances: [KSMBalance!]! @derivedFrom(field: "contract")
+	operators: [KSMOperator!]! @derivedFrom(field: "contract")
+	transfers: [KSMTransfer!]! @derivedFrom(field: "contract")
+	sellingTotal: Int!
+	soldTotal: Int!
+}
+type KSMToken @entity {
+	id: ID!
+	contract: KSMContract!
+	identifier: BigInt!
+	uri: String
+	totalSupply: KSMBalance!
+	balances: [KSMBalance!]! @derivedFrom(field: "token")
+	transfers: [KSMTransfer!]! @derivedFrom(field: "token")
+}
+type KSMBalance @entity {
+	id: ID!
+	contract: KSMContract!
+	token: KSMToken!
+	account: KSMAccount
+	value: BigDecimal!
+	valueExact: BigInt!
+	transferFromEvent: [KSMTransfer!]! @derivedFrom(field: "fromBalance")
+	transferToEvent: [KSMTransfer!]! @derivedFrom(field: "toBalance")
+}
+type KSMOperator @entity {
+	id: ID!
+	contract: KSMContract!
+	owner: KSMAccount!
+	operator: KSMAccount!
+	approved: Boolean!
+}
+type KSMTransfer implements KSMEvent @entity {
+	id: ID!
+	emitter: KSMAccount!
+	transaction: KSMTransaction!
+	timestamp: BigInt!
+	contract: KSMContract!
+	token: KSMToken!
+	operator: KSMAccount!
+	from: KSMAccount
+	fromBalance: KSMBalance
+	to: KSMAccount
+	toBalance: KSMBalance
+	value: BigDecimal!
+	valueExact: BigInt!
+}
+interface KSMEvent {
+	id: ID!
+	transaction: KSMTransaction!
+	emitter: KSMAccount!
+	timestamp: BigInt!
+}
+type KSMTransaction @entity {
+	id: ID!
+	timestamp: BigInt!
+	blockNumber: BigInt!
+	events: [KSMEvent!]! @derivedFrom(field: "transaction")
+}
+
+#------------------------------------------EquipAttr
+interface EquipAttrInterface {
+	ModelId: Int
+	Name: String
+	Attr: String
+	SuitModelId: Int
+	Star: Int
+	Slot: Int
+}
+
+type EQUIPAttr implements EquipAttrInterface @entity {
+	id: ID!
+	token: KSEQUIPToken!
+
+	ModelId: Int
+	Name: String
+	Attr: String
+	SuitModelId: Int
+	Star: Int
+	Slot: Int
+}
+
+#-----------------------------------------------KSEquip
+type KSEQUIPAccount @entity {
+	id: ID!
+	asKSEQUIP: KSEQUIPContract
+	KSEQUIPtokens: [KSEQUIPToken!]! @derivedFrom(field: "owner")
+	KSEQUIPoperatorOwner: [KSEQUIPOperator!]! @derivedFrom(field: "owner")
+	KSEQUIPoperatorOperator: [KSEQUIPOperator!]! @derivedFrom(field: "operator")
+	KSEQUIPtransferFromEvent: [KSEQUIPTransfer!]! @derivedFrom(field: "from")
+	KSEQUIPtransferToEvent: [KSEQUIPTransfer!]! @derivedFrom(field: "to")
+	events: [KSEQUIPEvent!]! @derivedFrom(field: "emitter")
+}
+type KSEQUIPContract @entity {
+	id: ID!
+	asAccount: KSEQUIPAccount!
+	supportsMetadata: Boolean
+	name: String
+	symbol: String
+	tokens: [KSEQUIPToken!]! @derivedFrom(field: "contract")
+	operators: [KSEQUIPOperator!]! @derivedFrom(field: "contract")
+	transfers: [KSEQUIPTransfer!]! @derivedFrom(field: "contract")
+	sellingTotal: Int!
+	soldTotal: Int!
+}
+type KSEQUIPToken @entity {
+	id: ID!
+	contract: KSEQUIPContract!
+	identifier: BigInt!
+	owner: KSEQUIPAccount!
+	approval: KSEQUIPAccount!
+	uri: String
+	transfers: [KSEQUIPTransfer!]! @derivedFrom(field: "token")
+	attr: [EQUIPAttr!] @derivedFrom(field: "token")
+}
+type KSEQUIPOperator @entity {
+	id: ID!
+	contract: KSEQUIPContract!
+	owner: KSEQUIPAccount!
+	operator: KSEQUIPAccount!
+	approved: Boolean!
+}
+type KSEQUIPTransfer implements KSEQUIPEvent @entity {
+	id: ID!
+	emitter: KSEQUIPAccount!
+	transaction: KSEQUIPTransaction!
+	timestamp: BigInt!
+	contract: KSEQUIPContract!
+	token: KSEQUIPToken!
+	from: KSEQUIPAccount!
+	to: KSEQUIPAccount!
+}
+interface KSEQUIPEvent {
+	id: ID!
+	transaction: KSEQUIPTransaction!
+	emitter: KSEQUIPAccount!
+	timestamp: BigInt!
+}
+type KSEQUIPTransaction @entity {
+	id: ID!
+	timestamp: BigInt!
+	blockNumber: BigInt!
+	events: [KSEQUIPEvent!]! @derivedFrom(field: "transaction")
+}
+
+type KSFarm @entity {
+	id: ID!
+	owner: KSNFTAccount!
+	token: KSNFTToken!
+	timestamp: BigInt!
+	active: Boolean!
+	farmId: Int!
+}
+
+type KSProof @entity {
+	id: ID!
+	buyer: String!
+	value: BigDecimal!
+	valueExact: BigInt!
+	transferType: Int!
+	seed: BigInt!
+	timestamp: BigInt!
+}

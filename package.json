@@ -1,0 +1,43 @@
+{
+  "name": "token-contract",
+  "version": "1.0.0",
+  "description": "cd token-contract npm i",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "auth": "npx graph auth https://api.thegraph.com/deploy/",
+    "codegen": "npx graph codegen",
+    "build": "npx graph build",
+    "deploy": "npx graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ graphprotocol/erc20-subgraph",
+    "create-local": "npx graph create --node http://127.0.0.1:8020/ wangzc/imtoken",
+    "remove-local": "npx graph remove --node http://127.0.0.1:8020/ wangzc/imtoken",
+    "deploy-local": "npx graph deploy --node http://127.0.0.1:8020/ --ipfs http://127.0.0.1:5001 wangzc/imtoken"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@graphprotocol/graph-cli": "^0.25.1",
+    "@graphprotocol/graph-ts": "^0.24.1",
+    "@openzeppelin/test-helpers": "^0.5.15",
+    "@openzeppelin/truffle-upgrades": "^1.11.0",
+    "@truffle/provider": "^0.2.55",
+    "chai": "^4.3.4",
+    "chai-as-promised": "^7.1.1",
+    "chai-bignumber": "^3.0.0",
+    "ethereumjs-util": "^7.1.3",
+    "truffle": "^5.4.25"
+  },
+  "dependencies": {
+    "@amxx/graphprotocol-utils": "^1.1.0-alpha.1",
+    "@openzeppelin/contracts": "^4.4.1",
+    "@openzeppelin/contracts-upgradeable": "^4.4.1",
+    "@prb/math": "^2.5.0",
+    "ethereumjs-abi": "^0.6.8",
+    "ethereumjs-utils": "^5.2.5",
+    "truffle-hdwallet-provider": "^1.0.17",
+    "web3": "^1.6.1",
+    "web3-utils": "^1.6.1"
+  }
+}

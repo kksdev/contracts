@@ -1,0 +1,83 @@
+import { TypedMap } from '@graphprotocol/graph-ts'
+
+class EquipData{
+	ModelId: number;
+	SuitModelId: number;
+	Name: string;
+	Attr: string;
+	Star: number;
+	Slot: number;
+}
+
+let equipData = new TypedMap<number, EquipData>();
+
+equipData.set(13010001, 	{ModelId:13010001, 	SuitModelId:0, 	Name:'Iron water pipe', 	Attr:'201|45', 	Star:1, 	Slot:1301})
+equipData.set(13010002, 	{ModelId:13010002, 	SuitModelId:0, 	Name:'multi-purpose spanner', 	Attr:'201|55', 	Star:2, 	Slot:1301})
+equipData.set(13010003, 	{ModelId:13010003, 	SuitModelId:0, 	Name:'wooden baton', 	Attr:'201|90', 	Star:3, 	Slot:1301})
+equipData.set(13010004, 	{ModelId:13010004, 	SuitModelId:0, 	Name:'aluminum bat', 	Attr:'201|120', 	Star:1, 	Slot:1301})
+equipData.set(13010005, 	{ModelId:13010005, 	SuitModelId:0, 	Name:'Snow Crystal Sword', 	Attr:'201|240', 	Star:2, 	Slot:1301})
+equipData.set(13010006, 	{ModelId:13010006, 	SuitModelId:0, 	Name:'Taiyuan Sword', 	Attr:'201|310', 	Star:3, 	Slot:1301})
+equipData.set(13010007, 	{ModelId:13010007, 	SuitModelId:12, 	Name:'Soulbound Sword', 	Attr:'201|370', 	Star:4, 	Slot:1301})
+equipData.set(13010008, 	{ModelId:13010008, 	SuitModelId:13, 	Name:'Sword of victory', 	Attr:'201|560', 	Star:1, 	Slot:1301})
+equipData.set(13010009, 	{ModelId:13010009, 	SuitModelId:14, 	Name:'Relic Longsword', 	Attr:'201|670', 	Star:2, 	Slot:1301})
+equipData.set(13010010, 	{ModelId:13010010, 	SuitModelId:15, 	Name:'Blade of Eternal Sleep', 	Attr:'201|790', 	Star:3, 	Slot:1301})
+equipData.set(13010011, 	{ModelId:13010011, 	SuitModelId:16, 	Name:'Omnic Longsword', 	Attr:'201|910', 	Star:4, 	Slot:1301})
+equipData.set(13010012, 	{ModelId:13010012, 	SuitModelId:18, 	Name:'Infernal Claws', 	Attr:'201|1230', 	Star:5, 	Slot:1301})
+equipData.set(13010013, 	{ModelId:13010013, 	SuitModelId:19, 	Name:'Heartbreaker Scythe', 	Attr:'201|1475', 	Star:1, 	Slot:1301})
+equipData.set(13010014, 	{ModelId:13010014, 	SuitModelId:20, 	Name:'Sacred gun', 	Attr:'201|1740', 	Star:2, 	Slot:1301})
+equipData.set(13010015, 	{ModelId:13010015, 	SuitModelId:21, 	Name:'GPS sniper rifle', 	Attr:'201|2000', 	Star:3, 	Slot:1301})
+equipData.set(13010016, 	{ModelId:13010016, 	SuitModelId:22, 	Name:'Soul Blades', 	Attr:'201|3200', 	Star:4, 	Slot:1301})
+equipData.set(13010017, 	{ModelId:13010017, 	SuitModelId:23, 	Name:'King Terminal', 	Attr:'201|4800', 	Star:5, 	Slot:1301})
+equipData.set(13020001, 	{ModelId:13020001, 	SuitModelId:0, 	Name:'casual clothes', 	Attr:'203|340', 	Star:1, 	Slot:1302})
+equipData.set(13020002, 	{ModelId:13020002, 	SuitModelId:0, 	Name:'striped shirt', 	Attr:'203|405', 	Star:2, 	Slot:1302})
+equipData.set(13020003, 	{ModelId:13020003, 	SuitModelId:0, 	Name:'Famous Brand Jacket', 	Attr:'203|690', 	Star:3, 	Slot:1302})
+equipData.set(13020004, 	{ModelId:13020004, 	SuitModelId:0, 	Name:'exercise clothes', 	Attr:'203|895', 	Star:1, 	Slot:1302})
+equipData.set(13020005, 	{ModelId:13020005, 	SuitModelId:0, 	Name:'tights', 	Attr:'203|1790', 	Star:2, 	Slot:1302})
+equipData.set(13020006, 	{ModelId:13020006, 	SuitModelId:0, 	Name:'Purple Robe', 	Attr:'203|2325', 	Star:3, 	Slot:1302})
+equipData.set(13020007, 	{ModelId:13020007, 	SuitModelId:12, 	Name:'Soul Wrapped Light Shirt', 	Attr:'203|2795', 	Star:4, 	Slot:1302})
+equipData.set(13020008, 	{ModelId:13020008, 	SuitModelId:13, 	Name:'Robe of Tiebreaker ', 	Attr:'203|4190', 	Star:1, 	Slot:1302})
+equipData.set(13020009, 	{ModelId:13020009, 	SuitModelId:14, 	Name:'Relic Long Dress', 	Attr:'203|5025', 	Star:2, 	Slot:1302})
+equipData.set(13020010, 	{ModelId:13020010, 	SuitModelId:15, 	Name:'Clothes of Eternal Sleep', 	Attr:'203|5930', 	Star:3, 	Slot:1302})
+equipData.set(13020011, 	{ModelId:13020011, 	SuitModelId:16, 	Name:'Omnic Armor', 	Attr:'203|6820', 	Star:4, 	Slot:1302})
+equipData.set(13020012, 	{ModelId:13020012, 	SuitModelId:18, 	Name:'seamless trench coat', 	Attr:'203|9210', 	Star:5, 	Slot:1302})
+equipData.set(13020013, 	{ModelId:13020013, 	SuitModelId:19, 	Name:'Heartbreaker Cloak', 	Attr:'203|11050', 	Star:1, 	Slot:1302})
+equipData.set(13020014, 	{ModelId:13020014, 	SuitModelId:20, 	Name:'Sacred jacket', 	Attr:'203|13040', 	Star:2, 	Slot:1302})
+equipData.set(13020015, 	{ModelId:13020015, 	SuitModelId:21, 	Name:'GPS Battle Armor', 	Attr:'203|14995', 	Star:3, 	Slot:1302})
+equipData.set(13020016, 	{ModelId:13020016, 	SuitModelId:22, 	Name:'Soul Robe', 	Attr:'203|23990', 	Star:4, 	Slot:1302})
+equipData.set(13020017, 	{ModelId:13020017, 	SuitModelId:23, 	Name:'Heavenly King's Armor', 	Attr:'203|35990', 	Star:5, 	Slot:1302})
+equipData.set(13030001, 	{ModelId:13030001, 	SuitModelId:0, 	Name:'slippers', 	Attr:'201|30', 	Star:1, 	Slot:1303})
+equipData.set(13030002, 	{ModelId:13030002, 	SuitModelId:0, 	Name:'sneakers', 	Attr:'201|35', 	Star:2, 	Slot:1303})
+equipData.set(13030003, 	{ModelId:13030003, 	SuitModelId:0, 	Name:'cloth shoes', 	Attr:'201|60', 	Star:3, 	Slot:1303})
+equipData.set(13030004, 	{ModelId:13030004, 	SuitModelId:0, 	Name:'exercise shoes', 	Attr:'201|80', 	Star:1, 	Slot:1303})
+equipData.set(13030005, 	{ModelId:13030005, 	SuitModelId:0, 	Name:'Lightweight shoes', 	Attr:'201|160', 	Star:2, 	Slot:1303})
+equipData.set(13030006, 	{ModelId:13030006, 	SuitModelId:0, 	Name:'lark boots', 	Attr:'201|205', 	Star:3, 	Slot:1303})
+equipData.set(13030007, 	{ModelId:13030007, 	SuitModelId:12, 	Name:'Annoyed Shoes', 	Attr:'201|250', 	Star:4, 	Slot:1303})
+equipData.set(13030008, 	{ModelId:13030008, 	SuitModelId:13, 	Name:'Showdown Boots', 	Attr:'201|370', 	Star:1, 	Slot:1303})
+equipData.set(13030009, 	{ModelId:13030009, 	SuitModelId:14, 	Name:'Relic Boots', 	Attr:'201|445', 	Star:2, 	Slot:1303})
+equipData.set(13030010, 	{ModelId:13030010, 	SuitModelId:15, 	Name:'Boots of Eternal Sleep', 	Attr:'201|525', 	Star:3, 	Slot:1303})
+equipData.set(13030011, 	{ModelId:13030011, 	SuitModelId:16, 	Name:'Omnic Boots', 	Attr:'201|605', 	Star:4, 	Slot:1303})
+equipData.set(13030012, 	{ModelId:13030012, 	SuitModelId:18, 	Name:'Boots of Infernal Warfare', 	Attr:'201|820', 	Star:5, 	Slot:1303})
+equipData.set(13030013, 	{ModelId:13030013, 	SuitModelId:19, 	Name:'Heartbreaker Boots', 	Attr:'201|980', 	Star:1, 	Slot:1303})
+equipData.set(13030014, 	{ModelId:13030014, 	SuitModelId:20, 	Name:'Holy War Boots', 	Attr:'201|1160', 	Star:2, 	Slot:1303})
+equipData.set(13030015, 	{ModelId:13030015, 	SuitModelId:21, 	Name:'GPS boots', 	Attr:'201|1335', 	Star:3, 	Slot:1303})
+equipData.set(13030016, 	{ModelId:13030016, 	SuitModelId:22, 	Name:'Soul Boots', 	Attr:'201|2135', 	Star:4, 	Slot:1303})
+equipData.set(13030017, 	{ModelId:13030017, 	SuitModelId:23, 	Name:'Heavenly King's Foot', 	Attr:'201|3200', 	Star:5, 	Slot:1303})
+equipData.set(13040001, 	{ModelId:13040001, 	SuitModelId:0, 	Name:'sun hat', 	Attr:'203|225', 	Star:1, 	Slot:1304})
+equipData.set(13040002, 	{ModelId:13040002, 	SuitModelId:0, 	Name:'baseball cap', 	Attr:'203|270', 	Star:2, 	Slot:1304})
+equipData.set(13040003, 	{ModelId:13040003, 	SuitModelId:0, 	Name:'scarf', 	Attr:'203|460', 	Star:3, 	Slot:1304})
+equipData.set(13040004, 	{ModelId:13040004, 	SuitModelId:0, 	Name:'green cotton hat', 	Attr:'203|595', 	Star:1, 	Slot:1304})
+equipData.set(13040005, 	{ModelId:13040005, 	SuitModelId:0, 	Name:'Beret Cap', 	Attr:'203|1195', 	Star:2, 	Slot:1304})
+equipData.set(13040006, 	{ModelId:13040006, 	SuitModelId:0, 	Name:'Gold silk hat', 	Attr:'203|1550', 	Star:3, 	Slot:1304})
+equipData.set(13040007, 	{ModelId:13040007, 	SuitModelId:12, 	Name:'Annoyed Cap', 	Attr:'203|1860', 	Star:4, 	Slot:1304})
+equipData.set(13040008, 	{ModelId:13040008, 	SuitModelId:13, 	Name:'tiebreaker headgear', 	Attr:'203|2795', 	Star:1, 	Slot:1304})
+equipData.set(13040009, 	{ModelId:13040009, 	SuitModelId:14, 	Name:'Relic Bowler Hat', 	Attr:'203|3350', 	Star:2, 	Slot:1304})
+equipData.set(13040010, 	{ModelId:13040010, 	SuitModelId:15, 	Name:'Hair ornament of Eternal Sleep', 	Attr:'203|3955', 	Star:3, 	Slot:1304})
+equipData.set(13040011, 	{ModelId:13040011, 	SuitModelId:16, 	Name:'omnic headband', 	Attr:'203|4545', 	Star:4, 	Slot:1304})
+equipData.set(13040012, 	{ModelId:13040012, 	SuitModelId:18, 	Name:'Infernal Round Hat', 	Attr:'203|6140', 	Star:5, 	Slot:1304})
+equipData.set(13040013, 	{ModelId:13040013, 	SuitModelId:19, 	Name:'Heartbreaker headband', 	Attr:'203|7365', 	Star:1, 	Slot:1304})
+equipData.set(13040014, 	{ModelId:13040014, 	SuitModelId:20, 	Name:'Sacred Hat', 	Attr:'203|8695', 	Star:2, 	Slot:1304})
+equipData.set(13040015, 	{ModelId:13040015, 	SuitModelId:21, 	Name:'GPS helmet', 	Attr:'203|9995', 	Star:3, 	Slot:1304})
+equipData.set(13040016, 	{ModelId:13040016, 	SuitModelId:22, 	Name:'Soul Cap', 	Attr:'203|15995', 	Star:4, 	Slot:1304})
+equipData.set(13040017, 	{ModelId:13040017, 	SuitModelId:23, 	Name:'Crown of the Heavenly King', 	Attr:'203|23990', 	Star:5, 	Slot:1304})
+
+export default equipData;

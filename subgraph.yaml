@@ -1,0 +1,219 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - name: ERC20
+    kind: ethereum/contract
+    network: mainnet
+    source:
+      abi: ERC20
+      address: '0x64A549d5E36014dC89d2e442A21dEAC7f711e3d2'
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - KSTokenAccount
+        - KSTokenContract
+        - KSTokenBalance
+        - KSTokenApproval
+        - KSTokenTransfer
+        - KSTokenTransaction
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+      file: ./src/mappings/erc20.ts
+  - name: ERC721
+    kind: ethereum/contract
+    network: mainnet
+    source:
+      abi: ERC721
+      address: '0xb43Ad539842f005b41b9F832436b0cb521c4ac33'
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - KSNFTAccount
+        - KSNFTContract
+        - KSNFTToken
+        - KSNFTOperator
+        - KSNFTTransfer
+        - KSNFTTransaction
+      abis:
+        - name: ERC721
+          file: ./abis/ERC721.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+        - event: Approval(indexed address,indexed address,indexed uint256)
+          handler: handleApproval 
+        - event: ApprovalForAll(indexed address,indexed address,bool)
+          handler: handleApprovalForAll
+      file: ./src/mappings/erc721.ts
+  - name: Market
+    kind: ethereum/contract
+    network: mainnet
+    source:
+      abi: Market
+      address: '0x36c445fb5a95b7bc56f51C066bbD1879C6434E7b'
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Listing
+      abis:
+        - name: Market
+          file: ./abis/Market.json
+        - name: ERC721
+          file: ./abis/ERC721.json
+      eventHandlers:
+        - event: NewListing(indexed address,indexed address,indexed uint256,uint256)
+          handler: handleNewListing
+        - event: ListingChange(indexed address,indexed address,indexed uint256,uint256)
+          handler: handleListingChange
+        - event: CancelledListing(indexed address,indexed address,indexed uint256)
+          handler: handleCancelledListing
+        - event: PurchasedListing(indexed address,address,indexed address,indexed uint256,uint256)
+          handler: handlePurchasedListing
+        - event: NewListing1155(indexed address,indexed uint256,indexed address,uint256,uint256,uint256)
+          handler: handleNewListing1155
+        - event: ListingChange1155(indexed address,indexed uint256,uint256,uint256)
+          handler: handleListingChange1155
+        - event: CancelledListing1155(indexed address,indexed uint256)
+          handler: handleCancelledListing1155
+        - event: PurchasedListing1155(indexed address,indexed uint256,indexed address,uint256)
+          handler: handlePurchasedListing1155
+      file: ./src/mappings/market.ts
+  - name: KSNFT
+    kind: ethereum/contract
+    network: mainnet
+    source:
+      abi: KSNFT
+      address: '0xb43Ad539842f005b41b9F832436b0cb521c4ac33'
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - NFTAttr
+      abis:
+        - name: KSNFT
+          file: ./abis/KSNFT.json
+        - name: ERC721
+          file: ./abis/ERC721.json
+      eventHandlers:
+        - event: mintKSNFT(indexed address,indexed uint256,(uint16,uint16,uint16,uint16,uint16,uint16,uint16,uint16,uint16,uint16,uint16,uint16,uint16,bool[4]))
+          handler: handleMintKSNFT
+        - event: updateKSNFTAttr(indexed uint256,(uint16,uint16,uint16,uint16,uint16,uint16,uint16,uint16,uint16,uint16,uint16,uint16,uint16,bool[4]))
+          handler: handleUpdateKSNFTAttr
+        - event: putOnEquipEvent(indexed uint256,uint8[],uint256[])
+          handler: handlePutOnEquipEvent         
+      file: ./src/mappings/KSNFT.ts
+  - name: KSEquip721
+    kind: ethereum/contract
+    network: mainnet
+    source:
+      abi: ERC721
+      address: '0x44d51D3c7A0F8B29fC54C7C597a1b0E5b2236C90'
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - KSEquipAccount
+        - KSEquipContract
+        - KSEquipToken
+        - KSEquipOperator
+        - KSEquipTransfer
+        - KSEquipTransaction
+      abis:
+        - name: ERC721
+          file: ./abis/ERC721.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+        - event: Approval(indexed address,indexed address,indexed uint256)
+          handler: handleApproval 
+        - event: ApprovalForAll(indexed address,indexed address,bool)
+          handler: handleApprovalForAll
+      file: ./src/mappings/ksequip721.ts
+  - name: KSEquip
+    kind: ethereum/contract
+    network: mainnet
+    source:
+      abi: KSEquip
+      address: '0x44d51D3c7A0F8B29fC54C7C597a1b0E5b2236C90'
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - EQUIPAttr
+      abis:
+        - name: KSEquip
+          file: ./abis/KSEquip.json
+        - name: ERC721
+          file: ./abis/ERC721.json
+      eventHandlers:
+        - event: MintKSEquip(indexed address,indexed uint256,uint32)
+          handler: handleMintKSEquip
+      file: ./src/mappings/ksequip.ts    
+  - name: KSMaterial
+    kind: ethereum/contract
+    network: mainnet
+    source:
+      address: '0x10F0921A25c6d44E1C02C109A34A00c988472a2A'
+      abi: IERC1155
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - KSMContract
+      abis:
+        - name: IERC1155
+          file: ./abis/ERC1155.json
+      eventHandlers:
+        - event: ApprovalForAll(indexed address,indexed address,bool)
+          handler: handleApprovalForAll
+        - event: TransferBatch(indexed address,indexed address,indexed address,uint256[],uint256[])
+          handler: handleTransferBatch
+        - event: TransferSingle(indexed address,indexed address,indexed address,uint256,uint256)
+          handler: handleTransferSingle
+        - event: URI(string,indexed uint256)
+          handler: handleURI
+      file: ./src/mappings/ksmaterial.ts
+  - name: Factory
+    kind: ethereum/contract
+    network: mainnet
+    source:
+      address: '0xAFB0EB9861c7A6850FB88a9fE2ba835a1dbE970f'
+      abi: Factory
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - KSMContract
+      abis:
+        - name: Factory
+          file: ./abis/Factory.json
+      eventHandlers:
+        - event: FarmInEvent(indexed address,uint8,uint256[])
+          handler: handleFarmInEvent
+        - event: FarmOutEvent(indexed address,uint256[])
+          handler: handleFarmOutEvent
+        - event: FarmUpdateTime(indexed address,uint256[])
+          handler: handleFarmUpdateTime
+        - event: TransferProof(indexed address,uint256,uint8,uint64)
+          handler: handleTransferProof        
+      file: ./src/mappings/factory.ts
