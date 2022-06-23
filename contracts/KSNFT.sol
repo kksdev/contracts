@@ -50,15 +50,23 @@ contract KSNFT is Initializable, ERC721EnumerableUpgradeable, OwnableUpgradeable
         uint16 Star;
         uint16 Exp;
         uint16 Level;
+        bool[4] pos;
+    }
+
+    struct NFTAttr2{
         uint16 sAP;
         uint16 sDEF;
         uint16 sHP;
         uint16 sLuck;
-        bool[4] pos;
-     }
+        uint16 bAP;
+        uint16 bDEF;
+        uint16 bHP;
+        uint16 bLuck;
+    }
 
     // mapping nftAttrs(address => )
     mapping(uint256 => NFTAttr) private nftAttrs;
+    mapping(uint256 => NFTAttr2) private nftAttrs2;
     mapping(uint256 => uint256[4]) private equipIdOfNft;
 
     KSEquip private ksEquip_address;
@@ -78,57 +86,28 @@ contract KSNFT is Initializable, ERC721EnumerableUpgradeable, OwnableUpgradeable
         attrConfig_addr = addr;
     }
 
-    function putOnEquip(uint256 tokenId, uint8[] calldata pos, uint256[] calldata equipId) public {
-        require(ownerOf(tokenId) == msg.sender, "tokenId not owner");
-        require(pos.length == equipId.length, "arguments error");
-
-        NFTAttr memory nftattr = getNftAttr(tokenId); 
-
-        nftattr.AP -= nftattr.sAP;
-        nftattr.DEF -= nftattr.sDEF;
-        nftattr.HPMAX -= nftattr.sHP;
-        nftattr.Luck -= nftattr.sLuck;
-        nftattr.sAP = 0;
-        nftattr.sDEF = 0;
-        nftattr.sHP = 0;
-        nftattr.sLuck = 0;
-
-        for(uint8 i=0; i<pos.length; i++) {
-            require(pos[i]<4, "pos should <=3");
-            require(nftattr.pos[pos[i]], "pos is locked");
-            
-            if( equipIdOfNft[tokenId][pos[i]] != 0) {
-                AttrConfig.EquipAttr memory equipattr = attrConfig_addr.getEquipAttr(ksEquip_address.getEquipId(equipIdOfNft[tokenId][pos[i]]));
-                nftattr.AP -= equipattr.AP;
-                nftattr.DEF -= equipattr.DEF;
-                nftattr.HPMAX -= equipattr.HPMAX;
-                nftattr.Luck -= equipattr.LUCK;
-
-                ksEquip_address.transferFrom(address(this), msg.sender, equipIdOfNft[tokenId][pos[i]]);
-                equipIdOfNft[tokenId][pos[i]] = 0;
-            }
-
-            if (equipId[i] != 0) {
-                AttrConfig.EquipAttr memory equipattr = attrConfig_addr.getEquipAttr(ksEquip_address.getEquipId(equipId[i]));
-                nftattr.AP += equipattr.AP;
-                nftattr.DEF += equipattr.DEF;
-                nftattr.HPMAX += equipattr.HPMAX;
-                nftattr.Luck += equipattr.LUCK;
-
-                equipIdOfNft[tokenId][pos[i]] = equipId[i];
-                ksEquip_address.transferFrom(msg.sender, address(this), equipId[i]);
-            }
-        }
+    function calcSuitAttr(uint256 nftId) public {
+        
+        NFTAttr memory nftattr = nftAttrs[nftId]; 
+        NFTAttr2 memory nftattr2 = nftAttrs2[nftId];     
+        nftattr.AP -= nftattr2.sAP;
+        nftattr.DEF -= nftattr2.sDEF;
+        nftattr.HPMAX -= nftattr2.sHP;
+        nftattr.Luck -= nftattr2.sLuck;
+        nftattr2.sAP = 0;
+        nftattr2.sDEF = 0;
+        nftattr2.sHP = 0;
+        nftattr2.sLuck = 0;
 
         for(uint8 i=0; i<3; i++) {
-            uint256 e1 = equipIdOfNft[tokenId][i];
+            uint256 e1 = equipIdOfNft[nftId][i];
             uint8 sNum = 0;
             uint16 sId = 0;
             if(  e1 != 0 ) {
                 AttrConfig.EquipAttr memory a1 = attrConfig_addr.getEquipAttr(ksEquip_address.getEquipId(e1));
                 if( a1.SuitId != 0) {
                     for( uint8 j=i+1; j<4; j++ ) {
-                        uint256 e2 = equipIdOfNft[tokenId][j];
+                        uint256 e2 = equipIdOfNft[nftId][j];
                         if( e2 != 0) {
                             AttrConfig.EquipAttr memory a2= attrConfig_addr.getEquipAttr(ksEquip_address.getEquipId(e1));
                             if( a2.SuitId != 0 ) {
@@ -145,23 +124,61 @@ contract KSNFT is Initializable, ERC721EnumerableUpgradeable, OwnableUpgradeable
             if( sNum > 0) {
                 uint16 suitId = sId*10 + sNum + 1;
                 AttrConfig.SuitAttr memory suitattr = attrConfig_addr.getSuitAttr(suitId);
-                nftattr.sAP += uint16(nftattr.AP.mul(suitattr.APR).div(10000));
-                nftattr.sDEF += uint16(nftattr.DEF.mul(suitattr.DEFR).div(10000));
-                nftattr.sHP += uint16(nftattr.AP.mul(suitattr.HPMAXR).div(10000));
-                nftattr.sLuck += uint16(nftattr.AP.mul(suitattr.LUCKR).div(10000));
+                nftattr2.sAP += uint16(nftattr.AP.mul(suitattr.APR).div(10000));
+                nftattr2.sDEF += uint16(nftattr.DEF.mul(suitattr.DEFR).div(10000));
+                nftattr2.sHP += uint16(nftattr.AP.mul(suitattr.HPMAXR).div(10000));
+                nftattr2.sLuck += uint16(nftattr.AP.mul(suitattr.LUCKR).div(10000));
             }
             if( sNum > 1) break;
         }
 
-        nftattr.AP += nftattr.sAP;
-        nftattr.DEF += nftattr.sDEF;
-        nftattr.HPMAX += nftattr.sHP;
-        nftattr.Luck += nftattr.sLuck;
+        nftattr.AP += nftattr2.sAP;
+        nftattr.DEF += nftattr2.sDEF;
+        nftattr.HPMAX += nftattr2.sHP;
+        nftattr.Luck += nftattr2.sLuck;
 
-        nftAttrs[tokenId] = nftattr;
+        nftAttrs[nftId] = nftattr;
+        nftAttrs2[nftId] = nftattr2;
 
-        emit updateKSNFTAttr(tokenId, nftattr);
-        emit putOnEquipEvent(tokenId, pos, equipId);
+        emit updateKSNFTAttr(nftId, nftattr);
+    }
+    function putOnEquip(uint256 nftId, uint8[] calldata pos, uint256[] calldata equipId) public {
+        require(ownerOf(nftId) == msg.sender, "tokenId not owner");
+        require(pos.length == equipId.length, "arguments error");
+
+        NFTAttr memory nftattr = nftAttrs[nftId]; 
+
+        for(uint8 i=0; i<pos.length; i++) {
+            require(pos[i]<4, "pos should <=3");
+            require(nftattr.pos[pos[i]], "pos is locked");
+            
+            if( equipIdOfNft[nftId][pos[i]] != 0) {
+                AttrConfig.EquipAttr memory equipattr = attrConfig_addr.getEquipAttr(ksEquip_address.getEquipId(equipIdOfNft[nftId][pos[i]]));
+                nftattr.AP -= equipattr.AP;
+                nftattr.DEF -= equipattr.DEF;
+                nftattr.HPMAX -= equipattr.HPMAX;
+                nftattr.Luck -= equipattr.LUCK;
+
+                ksEquip_address.transferFrom(address(this), msg.sender, equipIdOfNft[nftId][pos[i]]);
+                equipIdOfNft[nftId][pos[i]] = 0;
+            }
+
+            if (equipId[i] != 0) {
+                AttrConfig.EquipAttr memory equipattr = attrConfig_addr.getEquipAttr(ksEquip_address.getEquipId(equipId[i]));
+                nftattr.AP += equipattr.AP;
+                nftattr.DEF += equipattr.DEF;
+                nftattr.HPMAX += equipattr.HPMAX;
+                nftattr.Luck += equipattr.LUCK;
+
+                equipIdOfNft[nftId][pos[i]] = equipId[i];
+                ksEquip_address.transferFrom(msg.sender, address(this), equipId[i]);
+            }
+        }
+
+        nftAttrs[nftId] = nftattr;
+        calcSuitAttr(nftId);
+
+        emit putOnEquipEvent(nftId, pos, equipId);
     }
 
     modifier saleIsOpen() {
@@ -329,13 +346,18 @@ contract KSNFT is Initializable, ERC721EnumerableUpgradeable, OwnableUpgradeable
             _Luck = uint16(random("Luck", 31)) + 100;
         }
 
-        nftAttrs[newTokenId] = NFTAttr(_HeroId, _AP, _DEF, _HP, _HP, _Luck, _Star, _Exp, 1, 0, 0, 0, 0,[false,false,false,false]);
+        nftAttrs[newTokenId] = NFTAttr(_HeroId, _AP, _DEF, _HP, _HP, _Luck, _Star, _Exp, 1, [false,false,false,false]);
+        nftAttrs2[newTokenId] = NFTAttr2(0, 0, 0, 0, _AP, _DEF, _HP, _Luck);
 
         emit mintKSNFT(_to, newTokenId, nftAttrs[newTokenId]);
     }
 
     function getNftAttr(uint256 tokenId) public view returns (NFTAttr memory) {
         return nftAttrs[tokenId];
+    }
+
+    function getNftAttr2(uint256 tokenId) public view returns (NFTAttr2 memory) {
+        return nftAttrs2[tokenId];
     }
 
     function getNftPower(uint256 tokenId) public view returns (uint16) {

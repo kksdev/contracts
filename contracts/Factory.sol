@@ -6,7 +6,7 @@ import "./KSMaterial.sol";
 import "./KSNFT.sol";
 import "./KSToken.sol";
 import "./HeroConfig.sol";
-//import "@openzeppelin/contracts/utils/math/SafeMath.sol";
+import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts-upgradeable/utils/structs/EnumerableSetUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
@@ -14,9 +14,10 @@ import "@prb/math/contracts/PRBMathUD60x18.sol";
 
 contract Factory is OwnableUpgradeable {
 
-//    using SafeMath for uint16;
+ //   using SafeMath for uint16;
+ //   using SafeMath for uint256;
     using EnumerableSetUpgradeable for EnumerableSetUpgradeable.UintSet;
-    using PRBMathUD60x18 for uint256;
+    //using PRBMathUD60x18 for uint256;
 
     KSEquip private _equip; 
     KSMaterial private _material;
@@ -25,7 +26,6 @@ contract Factory is OwnableUpgradeable {
     address private _signer;
     uint256 private _stoneId;
     uint8[5] private _stoneNum;
-    uint256[5] private _tokenNeed;
     address private _beneficiary;
     uint8 private _MAX_EQUIP_LEVEL;
     uint256 private _EQUIP_TOKENS;
@@ -48,6 +48,8 @@ contract Factory is OwnableUpgradeable {
     HeroConfig private _config;
     uint256 private _unlockPosFee;
     uint16[6] private _level;
+    uint256 public testa;
+    uint256 public testb;
 
     struct rewardBox {
         uint32[] equipIds;
@@ -67,8 +69,7 @@ contract Factory is OwnableUpgradeable {
         _token = token;
         _beneficiary = beneficiary;
  
-        _stoneNum = [2,5,15,25,50];
-        _tokenNeed = [10 ether, 30 ether, 50 ether, 150 ether, 500 ether];
+        _stoneNum = [3,5,15,25,50];
         _MAX_EQUIP_LEVEL = 17;
         _EQUIP_TOKENS = 10 ether;
         _Multipiler = 1e16;
@@ -128,20 +129,48 @@ contract Factory is OwnableUpgradeable {
     }
 
     function upgradeNft(uint256 masterNftId, uint256[] calldata burnNftIds) public {
-        require(burnNftIds.length == 2, "number err");
         require(_nft.ownerOf(masterNftId) == msg.sender, "not owner");
         KSNFT.NFTAttr memory attr = _nft.getNftAttr(masterNftId);
-        for(uint8 i = 0; i< 2; i++) {
-            require(_nft.getNftAttr(burnNftIds[i]).Star == attr.Star && _nft.getNftAttr(burnNftIds[i]).HeroId == attr.HeroId , "not same hero or star");
+        KSNFT.NFTAttr2 memory attr2 = _nft.getNftAttr2(masterNftId);
+        require(attr.Star < 6, "over max star");
+
+        for(uint8 i = 0; i< (attr.Star+1); i++) {
+            require(_nft.getNftAttr(burnNftIds[i]).HeroId == attr.HeroId , "not same hero or star");
             _nft.burn(burnNftIds[i]);
         }
 
         _material.burn(msg.sender, _stoneId, _stoneNum[attr.Star-1]);
-        _token.transferFrom(msg.sender, _beneficiary, _tokenNeed[attr.Star-1]);
-
         attr.Star += 1;
-        require(attr.Star <= 6, "over max star");
+        
+        if(attr.Star == 2) {
+            attr.AP += attr2.bAP * 20 /100;
+            attr.DEF += attr2.bDEF * 20 /100;
+            attr.HPMAX += attr2.bHP * 20 /100;
+            attr.Luck += attr2.bLuck * 20 /100;
+        }else if(attr.Star == 3) {
+            attr.AP += attr2.bAP * 30 /100;
+            attr.DEF += attr2.bDEF * 30 /100;
+            attr.HPMAX += attr2.bHP * 30 /100;
+            attr.Luck += attr2.bLuck * 30 /100;
+        }else if(attr.Star == 4) {
+            attr.AP += attr2.bAP * 40 /100;
+            attr.DEF += attr2.bDEF * 40 /100;
+            attr.HPMAX += attr2.bHP * 40 /100;
+            attr.Luck += attr2.bLuck * 40 /100;
+        }else if(attr.Star == 5) {
+            attr.AP += attr2.bAP * 50 /100;
+            attr.DEF += attr2.bDEF * 50 /100;
+            attr.HPMAX += attr2.bHP * 50 /100;
+            attr.Luck += attr2.bLuck * 50 /100;
+        }else if(attr.Star == 6) {
+            attr.AP += attr2.bAP * 60 /100;
+            attr.DEF += attr2.bDEF * 60 /100;
+            attr.HPMAX += attr2.bHP * 60 /100;
+            attr.Luck += attr2.bLuck * 60 /100;
+        }
+        
         _nft.setNftAttr(masterNftId, attr);
+        _nft.calcSuitAttr(masterNftId);
     }
 
     function upgradeEquip(uint256[] calldata tokenIds) public {
@@ -280,7 +309,7 @@ contract Factory is OwnableUpgradeable {
         else if(a.HeroId<=39) qual = 1;
         else if(a.HeroId<=58) qual = 2;
         else if(a.HeroId<=77) qual = 3;
-        return p.pow(_exp[farmId]) * _quality[qual] * _ratio[farmId] /10000 + _base[farmId];
+        return PRBMathUD60x18.pow(p, _exp[farmId]) * _quality[qual] * _ratio[farmId] /10000 + _base[farmId];
     }
 
     function updateHeroLevel(uint256 nftId, uint16 level, bool isFast) public {

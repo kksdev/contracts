@@ -126,10 +126,10 @@ export function handleNewListing(event: NewListingEvent): void {
         listing.Star = attr.Star
         listing.Level = attr.Level
 
-        listing.sAp = attr.sAp
-        listing.sDef = attr.sDef
-        listing.sHp = attr.sHp
-        listing.sLuck = attr.sLuck
+        listing.bAp = attr.bAp
+        listing.bDef = attr.bDef
+        listing.bHp = attr.bHp
+        listing.bLuck = attr.bLuck
 
         listing.Equip0 = attr.Equip0
         listing.Equip1 = attr.Equip1

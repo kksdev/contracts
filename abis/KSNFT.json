@@ -169,26 +169,6 @@
             "type": "uint16"
           },
           {
-            "internalType": "uint16",
-            "name": "sAP",
-            "type": "uint16"
-          },
-          {
-            "internalType": "uint16",
-            "name": "sDEF",
-            "type": "uint16"
-          },
-          {
-            "internalType": "uint16",
-            "name": "sHP",
-            "type": "uint16"
-          },
-          {
-            "internalType": "uint16",
-            "name": "sLuck",
-            "type": "uint16"
-          },
-          {
             "internalType": "bool[4]",
             "name": "pos",
             "type": "bool[4]"
@@ -282,26 +262,6 @@
           {
             "internalType": "uint16",
             "name": "Level",
-            "type": "uint16"
-          },
-          {
-            "internalType": "uint16",
-            "name": "sAP",
-            "type": "uint16"
-          },
-          {
-            "internalType": "uint16",
-            "name": "sDEF",
-            "type": "uint16"
-          },
-          {
-            "internalType": "uint16",
-            "name": "sHP",
-            "type": "uint16"
-          },
-          {
-            "internalType": "uint16",
-            "name": "sLuck",
             "type": "uint16"
           },
           {
@@ -729,7 +689,20 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "tokenId",
+        "name": "nftId",
+        "type": "uint256"
+      }
+    ],
+    "name": "calcSuitAttr",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "nftId",
         "type": "uint256"
       },
       {
@@ -1032,6 +1005,32 @@
             "type": "uint16"
           },
           {
+            "internalType": "bool[4]",
+            "name": "pos",
+            "type": "bool[4]"
+          }
+        ],
+        "internalType": "struct KSNFT.NFTAttr",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getNftAttr2",
+    "outputs": [
+      {
+        "components": [
+          {
             "internalType": "uint16",
             "name": "sAP",
             "type": "uint16"
@@ -1052,12 +1051,27 @@
             "type": "uint16"
           },
           {
-            "internalType": "bool[4]",
-            "name": "pos",
-            "type": "bool[4]"
+            "internalType": "uint16",
+            "name": "bAP",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint16",
+            "name": "bDEF",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint16",
+            "name": "bHP",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint16",
+            "name": "bLuck",
+            "type": "uint16"
           }
         ],
-        "internalType": "struct KSNFT.NFTAttr",
+        "internalType": "struct KSNFT.NFTAttr2",
         "name": "",
         "type": "tuple"
       }
@@ -1136,26 +1150,6 @@
           {
             "internalType": "uint16",
             "name": "Level",
-            "type": "uint16"
-          },
-          {
-            "internalType": "uint16",
-            "name": "sAP",
-            "type": "uint16"
-          },
-          {
-            "internalType": "uint16",
-            "name": "sDEF",
-            "type": "uint16"
-          },
-          {
-            "internalType": "uint16",
-            "name": "sHP",
-            "type": "uint16"
-          },
-          {
-            "internalType": "uint16",
-            "name": "sLuck",
             "type": "uint16"
           },
           {

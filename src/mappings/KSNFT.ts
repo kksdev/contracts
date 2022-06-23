@@ -53,10 +53,10 @@ export function handleMintKSNFT(event: mintKSNFTEvent): void {
             attr.Star = params.data.Star
             attr.Level = params.data.Level
 
-            attr.sAp = params.data.sAP
-            attr.sDef = params.data.sDEF
-            attr.sHp = params.data.sHP
-            attr.sLuck = params.data.sLuck
+            attr.bAp = params.data.AP
+            attr.bDef = params.data.DEF
+            attr.bHp = params.data.HPMAX
+            attr.bLuck = params.data.Luck
 
             attr.Pos0 = params.data.pos[0]
             attr.Pos1 = params.data.pos[1]
@@ -88,11 +88,6 @@ export function handleUpdateKSNFTAttr(event: updateKSNFTAttrEvent): void {
             attr.Exp = params.data.Exp
             attr.Star = params.data.Star
             attr.Level = params.data.Level
-
-            attr.sAp = params.data.sAP
-            attr.sDef = params.data.sDEF
-            attr.sHp = params.data.sHP
-            attr.sLuck = params.data.sLuck
 
             attr.Pos0 = params.data.pos[0]
             attr.Pos1 = params.data.pos[1]
