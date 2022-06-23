@@ -4,7 +4,7 @@ schema:
 dataSources:
   - name: ERC20
     kind: ethereum/contract
-    network: mainnet
+    network: bsctestnet
     source:
       abi: ERC20
       address: '0xe00eF2A37030d2cf359772335b22c294637a5Aee'
@@ -31,7 +31,7 @@ dataSources:
       file: ./src/mappings/erc20.ts
   - name: ERC721
     kind: ethereum/contract
-    network: mainnet
+    network: bsctestnet
     source:
       abi: ERC721
       address: '0xaf52B970D958F653A0097E7292599f13144CaaaC'
@@ -60,7 +60,7 @@ dataSources:
       file: ./src/mappings/erc721.ts
   - name: Market
     kind: ethereum/contract
-    network: mainnet
+    network: bsctestnet
     source:
       abi: Market
       address: '0xcA3b8c36D83b42671f7054E4FdBD0618113003ec'
@@ -96,7 +96,7 @@ dataSources:
       file: ./src/mappings/market.ts
   - name: KSNFT
     kind: ethereum/contract
-    network: mainnet
+    network: bsctestnet
     source:
       abi: KSNFT
       address: '0xaf52B970D958F653A0097E7292599f13144CaaaC'
@@ -122,7 +122,7 @@ dataSources:
       file: ./src/mappings/KSNFT.ts
   - name: KSEquip721
     kind: ethereum/contract
-    network: mainnet
+    network: bsctestnet
     source:
       abi: ERC721
       address: '0xb8ea1CE9cbB5f58B693980FAbFE2cFa83A6EB294'
@@ -151,7 +151,7 @@ dataSources:
       file: ./src/mappings/ksequip721.ts
   - name: KSEquip
     kind: ethereum/contract
-    network: mainnet
+    network: bsctestnet
     source:
       abi: KSEquip
       address: '0xb8ea1CE9cbB5f58B693980FAbFE2cFa83A6EB294'
@@ -173,7 +173,7 @@ dataSources:
       file: ./src/mappings/ksequip.ts    
   - name: KSMaterial
     kind: ethereum/contract
-    network: mainnet
+    network: bsctestnet
     source:
       address: '0xF69690Fc3226171D1172a75Decc3cb68944B3642'
       abi: IERC1155
@@ -199,7 +199,7 @@ dataSources:
       file: ./src/mappings/ksmaterial.ts
   - name: Factory
     kind: ethereum/contract
-    network: mainnet
+    network: bsctestnet
     source:
       address: '0xdF3B0Ee630A7A865643c843139F545a0ceA16947'
       abi: Factory
