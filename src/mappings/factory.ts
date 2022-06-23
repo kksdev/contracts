@@ -20,7 +20,7 @@ import {
 	fetchERC721Token,
 } from '../fetch/erc721'
 
-let NFT_ADDRESS = "0xb43Ad539842f005b41b9F832436b0cb521c4ac33";
+let NFT_ADDRESS = "0xaf52B970D958F653A0097E7292599f13144CaaaC";
 
 export function getOrCreateKSFarm(id: string): KSFarm {
     let farm = KSFarm.load(id);

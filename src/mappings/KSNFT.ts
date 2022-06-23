@@ -25,7 +25,7 @@ import {
 
 import heroModel from "../config/HeroModel"
 
-let EQUIP_ADDRESS="0x44d51D3c7A0F8B29fC54C7C597a1b0E5b2236C90";
+let EQUIP_ADDRESS="0xb8ea1CE9cbB5f58B693980FAbFE2cFa83A6EB294";
 
 export function handleMintKSNFT(event: mintKSNFTEvent): void {
     let params = event.params;
