@@ -177,11 +177,11 @@ contract Factory is OwnableUpgradeable {
         uint32 equipId = _equip.getEquipId(tokenIds[0]);
         require((equipId%100) <_MAX_EQUIP_LEVEL,"MAX LEVEN");
         
-        uint32 newEquipId = equipId++;
+        uint32 newEquipId = equipId + 1;
         uint256 needTokens = 0;
         for(uint8 i = 0; i< tokenIds.length; i++) {
             require(_equip.ownerOf(tokenIds[i]) == msg.sender, "not owner");
-            require(_equip.getEquipId(tokenIds[1]) == equipId, "not same equipId");
+            require(_equip.getEquipId(tokenIds[i]) == equipId, "not same equipId");
             _equip.burn(tokenIds[i]);
             if((i+1)%3 == 0) {
                 _equip.mint(msg.sender, newEquipId);
