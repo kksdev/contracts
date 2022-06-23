@@ -190,7 +190,7 @@ contract Factory is OwnableUpgradeable {
         }
 
         if( needTokens > 0 ) {
-            _token.transferFrom(msg.sender, _beneficiary, _EQUIP_TOKENS);
+            _token.transferFrom(msg.sender, _beneficiary, needTokens);
         }
     }
 
