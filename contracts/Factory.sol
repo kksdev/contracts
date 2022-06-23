@@ -148,25 +148,25 @@ contract Factory is OwnableUpgradeable {
             attr.HPMAX += attr2.bHP * 20 /100;
             attr.Luck += attr2.bLuck * 20 /100;
         }else if(attr.Star == 3) {
-            attr.AP += attr2.bAP * 30 /100;
-            attr.DEF += attr2.bDEF * 30 /100;
-            attr.HPMAX += attr2.bHP * 30 /100;
-            attr.Luck += attr2.bLuck * 30 /100;
+            attr.AP += attr2.bAP * 27 /100;
+            attr.DEF += attr2.bDEF * 27 /100;
+            attr.HPMAX += attr2.bHP * 27 /100;
+            attr.Luck += attr2.bLuck * 27 /100;
         }else if(attr.Star == 4) {
-            attr.AP += attr2.bAP * 40 /100;
-            attr.DEF += attr2.bDEF * 40 /100;
-            attr.HPMAX += attr2.bHP * 40 /100;
-            attr.Luck += attr2.bLuck * 40 /100;
+            attr.AP += attr2.bAP * 34 /100;
+            attr.DEF += attr2.bDEF * 34 /100;
+            attr.HPMAX += attr2.bHP * 34 /100;
+            attr.Luck += attr2.bLuck * 34 /100;
         }else if(attr.Star == 5) {
-            attr.AP += attr2.bAP * 50 /100;
-            attr.DEF += attr2.bDEF * 50 /100;
-            attr.HPMAX += attr2.bHP * 50 /100;
-            attr.Luck += attr2.bLuck * 50 /100;
+            attr.AP += attr2.bAP * 39 /100;
+            attr.DEF += attr2.bDEF * 39 /100;
+            attr.HPMAX += attr2.bHP * 39 /100;
+            attr.Luck += attr2.bLuck * 39 /100;
         }else if(attr.Star == 6) {
-            attr.AP += attr2.bAP * 60 /100;
-            attr.DEF += attr2.bDEF * 60 /100;
-            attr.HPMAX += attr2.bHP * 60 /100;
-            attr.Luck += attr2.bLuck * 60 /100;
+            attr.AP += attr2.bAP * 42 /100;
+            attr.DEF += attr2.bDEF * 42 /100;
+            attr.HPMAX += attr2.bHP * 42 /100;
+            attr.Luck += attr2.bLuck * 42 /100;
         }
         
         _nft.setNftAttr(masterNftId, attr);

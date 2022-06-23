@@ -320,19 +320,19 @@ contract KSNFT is Initializable, ERC721EnumerableUpgradeable, OwnableUpgradeable
         uint16 _Exp = 0;
         //init
         uint16 rand = uint16(random("random", 10000));
-        if( rand <= 80) { //SSR 0.8%
+        if( rand < 80) { //SSR 0.8%
             _HeroId = uint16(random("HeroId", 19)) + 59;
             _AP = uint16(random("AP", 841)) + 1160;
             _DEF = uint16(random("DEF", 471)) + 880;
             _HP = uint16(random("HP", 1501)) + 5600;
             _Luck = uint16(random("Luck", 121)) + 290;
-        }else if( rand <= 1500 ) { //SR 14.2%
+        }else if( rand < 1500 ) { //SR 14.2%
             _HeroId = uint16(random("HeroId", 19)) + 40;
             _AP = uint16(random("AP", 476)) + 425;
             _DEF = uint16(random("DEF", 341)) + 320;
             _HP = uint16(random("HP", 1301)) + 2200;
             _Luck = uint16(random("Luck", 51)) + 210;
-        }else if( rand <= 4000 ) { //R 25%
+        }else if( rand < 4000 ) { //R 25%
             _HeroId = uint16(random("HeroId", 19)) + 21;
             _AP = uint16(random("AP", 201)) + 170;
             _DEF = uint16(random("DEF", 133)) + 128;
