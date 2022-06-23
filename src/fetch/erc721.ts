@@ -83,7 +83,7 @@ export function fetchERC721Token(contract: KSNFTContract, identifier: BigInt): K
 		token            = new KSNFTToken(id)
 		token.contract   = contract.id
 		token.identifier = identifier
-		token.approval   = fetchAccount(Address.fromString(constants.ADDRESS_ZERO)).id
+		token.approval   = fetchAccount(constants.ADDRESS_ZERO).id
 
 		if (contract.supportsMetadata) {
 			let erc721       = ERC721.bind(Address.fromString(contract.id))

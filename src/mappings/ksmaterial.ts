@@ -70,7 +70,7 @@ function registerTransfer(
 	ev.value       = decimals.toDecimals(value)
 	ev.valueExact  = value
 
-	if (from.id == constants.ADDRESS_ZERO) {
+	if (from.id == constants.ADDRESS_ZERO.toHex()) {
 		let totalSupply        = fetchKSMBalance(token, null)
 		totalSupply.valueExact = totalSupply.valueExact.plus(value)
 		totalSupply.value      = decimals.toDecimals(totalSupply.valueExact)
@@ -85,7 +85,7 @@ function registerTransfer(
 		ev.fromBalance         = balance.id
 	}
 
-	if (to.id == constants.ADDRESS_ZERO) {
+	if (to.id == constants.ADDRESS_ZERO.toHex()) {
 		let totalSupply        = fetchKSMBalance(token, null)
 		totalSupply.valueExact = totalSupply.valueExact.minus(value)
 		totalSupply.value      = decimals.toDecimals(totalSupply.valueExact)

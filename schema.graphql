@@ -174,10 +174,10 @@ type Listing implements NFTAttrInterface @entity {
 	Exp: Int
 	Level: Int
 
-	sAp: Int
-	sDef: Int
-	sHp: Int
-	sLuck: Int
+	bAp: Int
+	bDef: Int
+	bHp: Int
+	bLuck: Int
 
 	Equip0: KSEQUIPToken
 	Equip1: KSEQUIPToken
@@ -227,10 +227,10 @@ type NFTAttr implements NFTAttrInterface @entity {
 	Exp: Int
 	Level: Int
 
-	sAp: Int
-	sDef: Int
-	sHp: Int
-	sLuck: Int
+	bAp: Int
+	bDef: Int
+	bHp: Int
+	bLuck: Int
 
 	Equip0: KSEQUIPToken
 	Equip1: KSEQUIPToken
@@ -257,10 +257,10 @@ interface NFTAttrInterface {
 	Exp: Int
 	Level: Int
 
-	sAp: Int
-	sDef: Int
-	sHp: Int
-	sLuck: Int
+	bAp: Int
+	bDef: Int
+	bHp: Int
+	bLuck: Int
 
 	Equip0: KSEQUIPToken
 	Equip1: KSEQUIPToken
