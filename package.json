@@ -11,9 +11,9 @@
     "codegen": "npx graph codegen",
     "build": "npx graph build",
     "deploy": "npx graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ graphprotocol/erc20-subgraph",
-    "create-local": "npx graph create --node http://127.0.0.1:8020/ wangzc/imtoken",
-    "remove-local": "npx graph remove --node http://127.0.0.1:8020/ wangzc/imtoken",
-    "deploy-local": "npx graph deploy --node http://127.0.0.1:8020/ --ipfs http://127.0.0.1:5001 wangzc/imtoken"
+    "create-local": "npx graph create --node http://127.0.0.1:8020/ kokosei/kksdev",
+    "remove-local": "npx graph remove --node http://127.0.0.1:8020/ kokosei/kksdev",
+    "deploy-local": "npx graph deploy --node http://127.0.0.1:8020/ --ipfs http://127.0.0.1:5001 kokosei/kksdev"
   },
   "author": "",
   "license": "ISC",

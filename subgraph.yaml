@@ -8,6 +8,7 @@ dataSources:
     source:
       abi: ERC20
       address: '0xe00eF2A37030d2cf359772335b22c294637a5Aee'
+      startBlock: 20437800
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -34,6 +35,7 @@ dataSources:
     source:
       abi: ERC721
       address: '0xaf52B970D958F653A0097E7292599f13144CaaaC'
+      startBlock: 20437800
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -62,6 +64,7 @@ dataSources:
     source:
       abi: Market
       address: '0xcA3b8c36D83b42671f7054E4FdBD0618113003ec'
+      startBlock: 20437800
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -97,6 +100,7 @@ dataSources:
     source:
       abi: KSNFT
       address: '0xaf52B970D958F653A0097E7292599f13144CaaaC'
+      startBlock: 20437800
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -122,6 +126,7 @@ dataSources:
     source:
       abi: ERC721
       address: '0xb8ea1CE9cbB5f58B693980FAbFE2cFa83A6EB294'
+      startBlock: 20437800
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -150,6 +155,7 @@ dataSources:
     source:
       abi: KSEquip
       address: '0xb8ea1CE9cbB5f58B693980FAbFE2cFa83A6EB294'
+      startBlock: 20437800
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -171,7 +177,7 @@ dataSources:
     source:
       address: '0xF69690Fc3226171D1172a75Decc3cb68944B3642'
       abi: IERC1155
-      startBlock: 0
+      startBlock: 20437800
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -197,7 +203,7 @@ dataSources:
     source:
       address: '0xdF3B0Ee630A7A865643c843139F545a0ceA16947'
       abi: Factory
-      startBlock: 0
+      startBlock: 20437800
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
