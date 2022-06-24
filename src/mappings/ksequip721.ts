@@ -114,27 +114,3 @@ export function handleApprovalForAll(event: ApprovalForAllEvent): void {
 		// 	ev.save()
 	}
 }
-
-export function handleMintKSEquip(event: KSEquipEvent): void {
-    let params = event.params;
-    let attr = getOrCreateEQUIPAttr(params.id.toHex());
-
-    let contract = fetchERC721(event.address)
-	if (contract != null) {
-		let token = fetchERC721Token(contract, event.params.id);
-        attr.token = token.id;
-
-        let h = equipModel.get(params.equipId.toI32())
-        if ( h!= null )
-        {
-            attr.Name = h.Name
-            attr.ModelId = h.ModelId as i32
-            attr.Attr = h.Attr
-			attr.SuitModelId = h.SuitModelId as i32
-			attr.Star = h.Star as i32
-			attr.Slot = h.Slot as i32
-        }
-
-        attr.save();
-    }
-}

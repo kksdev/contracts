@@ -105,6 +105,10 @@ contract KSNFT is Initializable, ERC721EnumerableUpgradeable, OwnableUpgradeable
             uint16 sId = 0;
             if(  e1 != 0 ) {
                 AttrConfig.EquipAttr memory a1 = attrConfig_addr.getEquipAttr(ksEquip_address.getEquipId(e1));
+                nftattr2.sAP += a1.AP;
+                nftattr2.sDEF += a1.DEF;
+                nftattr2.sHP += a1.HPMAX;
+                nftattr2.sLuck += a1.LUCK;
                 if( a1.SuitId != 0) {
                     for( uint8 j=i+1; j<4; j++ ) {
                         uint256 e2 = equipIdOfNft[nftId][j];
@@ -124,10 +128,10 @@ contract KSNFT is Initializable, ERC721EnumerableUpgradeable, OwnableUpgradeable
             if( sNum > 0) {
                 uint16 suitId = sId*10 + sNum + 1;
                 AttrConfig.SuitAttr memory suitattr = attrConfig_addr.getSuitAttr(suitId);
-                nftattr2.sAP += uint16(nftattr.AP.mul(suitattr.APR).div(10000));
-                nftattr2.sDEF += uint16(nftattr.DEF.mul(suitattr.DEFR).div(10000));
-                nftattr2.sHP += uint16(nftattr.AP.mul(suitattr.HPMAXR).div(10000));
-                nftattr2.sLuck += uint16(nftattr.AP.mul(suitattr.LUCKR).div(10000));
+                nftattr2.sAP += uint16(nftattr2.sAP.mul(suitattr.APR).div(10000));
+                nftattr2.sDEF += uint16(nftattr2.sDEF.mul(suitattr.DEFR).div(10000));
+                nftattr2.sHP += uint16(nftattr2.sHP.mul(suitattr.HPMAXR).div(10000));
+                nftattr2.sLuck += uint16(nftattr2.sLuck.mul(suitattr.LUCKR).div(10000));
             }
             if( sNum > 1) break;
         }

@@ -43,7 +43,7 @@ export function handleMintKSEquip(event: KSEquipEvent): void {
         let h = equipModel.get(params.equipId.toI32())
         if ( h!= null )
         {
-            attr.Name = h.Name
+            attr.Name = ""
             attr.ModelId = h.ModelId as i32
             attr.Attr = h.Attr
 			attr.SuitModelId = h.SuitModelId as i32
